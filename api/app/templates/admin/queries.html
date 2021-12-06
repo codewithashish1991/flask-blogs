@@ -1,0 +1,67 @@
+{% extends 'admin/layout.html' %}
+{% block body %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Our Enquiry</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Message</th>
+              <th>Added Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for query in queries.items %}
+            <tr>
+              <td>{{ (page - 1) * limit + loop.index }}</td>
+              <td>{{ query.name | truncate(35) }}</td>
+              <td>{{ query.email | truncate(145) }}</td>
+              <td>{{ query.phone }}</td>
+              <td>{{ query.message | truncate(80) }}</td>
+              <td>{{ query.created_at.strftime('%B %d, %Y %I:%M %p') }}</td>
+              <td>
+                <a href="/admin/enquires/{{ query.id }}" class="pull-right text-primary">View</a> |
+                <a href="javascript:void(0)" class="pull-right text-primary delete_query" attr-id="{{ query.id }}">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <nav aria-label="...">
+          <ul class="pagination">
+            <li class="page-item {% if prev == "#" %} disabled {% endif %}">
+              <a class="page-link" href="{{ prev }}" {% if prev == "#" %} tabindex="-1" {% endif %}>Previous</a>
+            </li>
+            {% for p_no in range(total_page) %}
+            <li class="page-item {% if page == p_no + 1 %} active {% endif %}" ><a class="page-link" href="?page={{ p_no + 1 }}">{{ p_no + 1 }}</a></li>
+            {% endfor %}
+
+            <li class="page-item {% if nxt == "#" %} disabled {% endif %}">
+              <a class="page-link" href="{{nxt}}" {% if nxt=="#" %} tabindex="-1" {% endif %}>Next</a>
+            </li>
+          </ul>
+        </nav>
+        
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  $('.delete_query').click(function(){
+    var id = $(this).attr('attr-id');
+    if(confirm('Are you sure to delete this query')){
+      window.location.href = "/admin/enquiry/delete/"+id;
+    }
+  });
+</script>
+{% endblock %}

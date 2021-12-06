@@ -1,0 +1,14 @@
+ADMIN_EMAIL = 'your email id'
+ADMIN_RECORDS_PER_PAGE = 3
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+ENVIRONMENT = 'development'
+FB_URL = 'https://www.facebook.com/ashish'
+GITHUB_URL = 'https://github.com/codewithashish1991'
+GMAIL_PASSWORD = "your gmail password"
+GMAIL_USERNAME = "your email address"
+FRONT_RECORDS_PER_PAGE = 3
+SECRET_KEY = 'p9Bv<3Eid9%$i01'
+SITE_NAME = "Ashish's Blogs"
+SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@postgres/databasename'
+TWITTER_URL = 'https://twitter.com/your-id'
+UPLOAD_FOLDER = 'static/uploads'

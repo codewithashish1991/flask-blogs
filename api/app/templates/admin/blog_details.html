@@ -1,0 +1,44 @@
+{% extends 'admin/layout.html' %}
+{% block body %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Blogs Details ({{ post.title }}) </h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="table-responsive">
+        <a href="/admin/posts" class="float-right text-primary"> << Back to Blogs</a>
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <td><b>Title</b></td>
+              <td>{{ post.title }}</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Descriptions</b></td>
+              <td>{{ Markup(post.description) }}</td>
+            </tr>
+
+            <tr>
+              <td><b>status</b></td>
+              <td>
+                {% if post.status == true %} <span class="text-success font-weight-bold">Active</span> {% else %}<span class="text-danger font-weight-bold">Inactive</span> {% endif %}
+              </td>
+            </tr>
+
+            <tr>
+              {% set fname = 'uploads/posts/' + post.banner_image  %}
+              <td><b>Banner Image:</b></td>
+              <td><img src="{{ url_for('static', filename = fname if post.banner_image else 'img/default.jpeg' ) }}" alt="{{ post.title }}" width="100"></td>
+            </tr>
+
+          </tbody>
+        </table>
+        
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

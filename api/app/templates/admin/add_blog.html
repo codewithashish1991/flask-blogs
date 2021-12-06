@@ -1,0 +1,76 @@
+{% extends 'admin/layout.html' %}
+{% block body %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{% if posted_data.id %} Edit Blog({{ posted_data.title }}) {% else %} Add Blog {% endif %}</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="table-responsive">
+        <a href="/admin/posts" class="float-right text-primary"> << Back to Blogs</a>
+
+        <form method="POST" name="add_post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name ="title" value="{{ posted_data.title }}" >
+            <p class="help-block text-danger">
+              {% if errors.title %}
+                  {{ errors.title }}
+              {% endif %}
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" class="form-control">{{ posted_data.description }}</textarea>
+            <p class="help-block text-danger">
+              {% if errors.description %}
+                  {{ errors.description }}
+              {% endif %}
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="banner_image">Banner Image:</label>
+            <input type="file" class="form-control" id="banner_image" name ="banner_image" >
+            <p class="help-block text-danger">
+              {% if errors.banner_image %}
+                  {{ errors.banner_image }}
+              {% endif %}
+            </p>
+          </div>
+
+          {% if posted_data.id %}
+          <div class="form-group">
+            <label for="slug">Slug:</label>
+            <input type="text" class="form-control" id="slug" name ="slug" value="{{ posted_data.slug }}" >
+            <p class="help-block text-danger">
+              {% if errors.slug %}
+                  {{ errors.slug }}
+              {% endif %}
+            </p>
+            <input type="hidden" class="form-control" id="id" name ="id" value="{{ posted_data.id }}" >
+          </div>
+          {% endif %}
+
+          <div class="form-group">
+            <label for="sel1">Status:</label>
+            <select class="form-control" id="sel1" name = "status">
+              <option value = "" {% if posted_data.status == false %} selected {% endif %}>Inactive</option>
+              <option value = "active" {% if posted_data.status == true %} selected {% endif %} >Active</option>
+            </select>
+          </div>
+
+          <p class="help-block text-success">
+            {% if success %}
+                {{ success }}
+            {% endif %}
+          </p>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

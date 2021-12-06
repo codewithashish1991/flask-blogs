@@ -1,0 +1,49 @@
+version: "2.3"
+services:
+  api:
+    build: ./api/app
+    volumes:
+      - ./api/app/:/app
+    links:
+      - postgres:postgres
+    ports:
+      - 5000:5000
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: blogs
+      PGDATA: /data/postgres
+    networks:
+      - default
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      SERVER_MODE: "TRUE"
+    volumes:
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "5050:80"
+    links:
+      - postgres:postgres
+    networks:
+      - default
+    restart: always
+
+volumes:
+  db-data:
+  postgres:
+  pgadmin:
+
+#docker exec -t test_api_no-1_postgres_1 pg_dumpall -c -U root > dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql

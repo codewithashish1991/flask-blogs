@@ -1,0 +1,60 @@
+{% extends 'admin/layout.html' %}
+{% block body %}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <div class="table-responsive">
+        <h2>Our Blogs</h2>
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Title</th>
+              <th>Added Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for n in range(posts | length) %}
+            <tr>
+              <td>{{ n+1 }}</td>
+              <td>{{ posts[n].title | truncate(35) }}</td>
+              <td>{{ posts[n].created_at.strftime('%B %d, %Y %I:%M %p') }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="/admin/posts" class="pull-right text-primary">All Blogs</a>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <div class="table-responsive">
+        <h2>Recent Enquires</h2>
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Enquiry Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for n in range(queries | length) %}
+            <tr>
+              <td>{{ n+1 }}</td>
+              <td>{{ queries[n].name }}</td>
+              <td>{{ queries[n].email }}</td>
+              <td>{{ queries[n].created_at.strftime('%B %d, %Y %I:%M %p') }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="/admin/enquries" class="pull-right text-primary">All Enquries</a>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
